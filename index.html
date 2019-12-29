@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>北京话儿生成器</title>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <style>
+        body {
+            max-width: 500px;
+            min-width: auto;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+<h1>百京话儿生成器</h1>
+<form id="t">
+    <input type="text" name="text" placeholder="请输入您要转换的话">
+    <input type="submit">
+</form>
+<h2 id="show" style="color: red;"></h2>
+</body>
+<script>
+    $(function () {
+        function ser(json, s = null) {
+            var len = json.length,
+                re = null;
+            for (var i=0; i<len; i++) {
+                if (json[i].text == s) {
+                    return json[i].re;
+                }
+            }
+        }
+        $("#t").submit(function () {
+            var text = $("input[type=text]")[0].value,
+                len = text.length,
+                t = '',
+            jon = [
+                    {
+                        'text': '你',
+                        're': '您'
+                    },
+                {
+                    'text':' ',
+                    're':''
+                }
+                ];
+            for (var i=0; i<len; i++) {
+                var item = '',
+                    re = '';
+                item = text[i];
+                re = ser(jon, item);
+                item = !re ? item : re;
+                t += item + '儿';
+            }
+            document.getElementById("show").innerText = t;
+            return false;
+        })
+    })
+</script>
+</html>
